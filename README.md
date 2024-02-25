@@ -12,5 +12,5 @@
 
 ### 演示
 
-![](https://github.com/tiandi0228/expire/blob/dev/main/tray.png)
-![](https://github.com/tiandi0228/expire/blob/dev/main/login.png)
+![](https://github.com/tiandi0228/expire/blob/main/demo/tray.png)
+![](https://github.com/tiandi0228/expire/blob/main/demo/login.png)
