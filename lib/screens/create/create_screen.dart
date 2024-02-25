@@ -1,4 +1,4 @@
-import 'package:expir/screens/create/widgets/body.dart';
+import 'package:expire/screens/create/widgets/body.dart';
 import 'package:flutter/material.dart';
 
 class CreateScreen extends StatelessWidget {

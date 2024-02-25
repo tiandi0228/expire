@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:common_utils/common_utils.dart';
-import 'package:expir/store/local_storage.dart';
+import 'package:expire/store/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:ftoast/ftoast.dart';
 

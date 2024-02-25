@@ -1,4 +1,4 @@
-import 'package:expir/screens/splash/widgets/popup.dart';
+import 'package:expire/screens/splash/widgets/popup.dart';
 import 'package:flutter/material.dart';
 
 class Body extends StatefulWidget {

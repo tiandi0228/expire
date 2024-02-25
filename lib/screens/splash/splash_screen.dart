@@ -1,4 +1,4 @@
-import 'package:expir/screens/splash/widgets/body.dart';
+import 'package:expire/screens/splash/widgets/body.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {

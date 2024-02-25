@@ -1,6 +1,6 @@
-import 'package:expir/config/constants.dart';
-import 'package:expir/router/router.dart';
-import 'package:expir/screens/splash/splash_screen.dart';
+import 'package:expire/config/constants.dart';
+import 'package:expire/router/router.dart';
+import 'package:expire/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:uni_platform/uni_platform.dart';

@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:expir/config/constants.dart';
-import 'package:expir/store/local_storage.dart';
+import 'package:expire/config/constants.dart';
+import 'package:expire/store/local_storage.dart';
 import 'package:flutter/material.dart';
 
 /*

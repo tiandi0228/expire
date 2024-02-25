@@ -1,4 +1,4 @@
-import 'package:expir/screens/home/widgets/item.dart';
+import 'package:expire/screens/home/widgets/item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 

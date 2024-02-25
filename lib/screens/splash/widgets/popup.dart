@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:expir/screens/home/home_screen.dart';
-import 'package:expir/store/local_storage.dart';
+import 'package:expire/screens/home/home_screen.dart';
+import 'package:expire/store/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:uni_platform/uni_platform.dart';

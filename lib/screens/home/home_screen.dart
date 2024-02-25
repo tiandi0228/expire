@@ -1,5 +1,5 @@
-import 'package:expir/config/constants.dart';
-import 'package:expir/screens/home/widgets/body.dart';
+import 'package:expire/config/constants.dart';
+import 'package:expire/screens/home/widgets/body.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
