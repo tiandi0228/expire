@@ -1,3 +1,4 @@
+import 'package:expire/screens/create/widgets/form.dart';
 import 'package:flutter/material.dart';
 
 class Body extends StatefulWidget {
@@ -14,12 +15,7 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 10, top: 30, right: 10, bottom: 10),
-      child: InkWell(
-        onTap: () {
-          Navigator.pushNamed(context, '/login');
-        },
-        child: Text('添加'),
-      ),
+      child: const FormPage(),
     );
   }
 }

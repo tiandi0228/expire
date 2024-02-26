@@ -8,9 +8,11 @@
 
 - [x] 登录
 - [x] 首页
-- [ ] 信息录入
+- [x] 信息录入
 
 ### 演示
 
 ![](https://github.com/tiandi0228/expire/blob/main/demo/tray.png)
+![](https://github.com/tiandi0228/expire/blob/main/demo/home.png)
 ![](https://github.com/tiandi0228/expire/blob/main/demo/login.png)
+![](https://github.com/tiandi0228/expire/blob/main/demo/create.png)
