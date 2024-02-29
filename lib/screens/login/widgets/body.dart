@@ -56,8 +56,7 @@ class _BodyState extends State<Body> {
       (user) {
         if (user.accessToken.isNotEmpty) {
           LocalStorage.set('access-token', user.accessToken);
-          navigatorKey.currentState
-              ?.pushNamedAndRemoveUntil('/home', (route) => false);
+          navigatorKey.currentState?.pushNamed('/home');
           FToast.toast(
             context,
             duration: 800,
@@ -69,6 +68,13 @@ class _BodyState extends State<Body> {
         }
       },
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _usernameController.dispose();
+    _pwdController.dispose();
   }
 
   @override

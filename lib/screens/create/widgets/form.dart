@@ -1,3 +1,4 @@
+import 'package:expire/config/constants.dart';
 import 'package:expire/models/category_model.dart';
 import 'package:expire/service/category_service.dart';
 import 'package:expire/service/create_service.dart';
@@ -95,13 +96,14 @@ class _FormPageState extends State<FormPage> {
 
     CreateAPI.getCreateData(
       name: name,
-      manufactureDate: _manufactureDate.first.toString(),
+      manufactureDate:
+          _manufactureDate.first.toString().replaceAll(' 00:00:00.000', ''),
       qualityGuaranteePeriod: int.parse(qualityGuaranteePeriod),
       categoryId: categoryId,
       unit: _selectUnit,
       remind: int.parse(_remind),
     ).then((value) {
-      Navigator.pop(context);
+      navigatorKey.currentState?.pushNamed('/home');
       FToast.toast(
         context,
         duration: 800,
@@ -111,6 +113,13 @@ class _FormPageState extends State<FormPage> {
         ),
       );
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _nameController.dispose();
+    _qualityGuaranteePeriodController.dispose();
   }
 
   @override
