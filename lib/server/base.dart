@@ -95,8 +95,7 @@ class RequestUtil {
       // 当错误代码为 401 主动跳转登录界面
       if (e.response?.statusCode == 401) {
         Future.delayed(const Duration(seconds: 1), () {
-          Navigator.pushNamedAndRemoveUntil(
-              context, '/login', (route) => false);
+          navigatorKey.currentState?.pushNamed('/login');
         });
       }
       throw createErrorEntity(e);
@@ -126,10 +125,7 @@ class RequestUtil {
     } on DioError catch (e) {
       // 当错误代码为 401 主动跳转登录界面
       if (e.response?.statusCode == 401) {
-        Future.delayed(const Duration(seconds: 1), () {
-          Navigator.pushNamedAndRemoveUntil(
-              context, '/login', (route) => false);
-        });
+        navigatorKey.currentState?.pushNamed('/login');
       }
       throw createErrorEntity(e);
     }

@@ -24,7 +24,6 @@ class _HCInputState extends State<HCInput> {
   @override
   void initState() {
     super.initState();
-    debugPrint('${widget.obscureText}');
     setState(() {
       hidden = widget.obscureText == null ? false : true;
     });

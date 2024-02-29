@@ -1,8 +1,12 @@
+import 'package:expire/models/category_model.dart';
+import 'package:expire/service/category_service.dart';
+import 'package:expire/service/create_service.dart';
 import 'package:expire/widgets/button_widget.dart';
 import 'package:expire/widgets/date_widget.dart';
 import 'package:expire/widgets/input_widget.dart';
 import 'package:expire/widgets/select_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:ftoast/ftoast.dart';
 
 class FormPage extends StatefulWidget {
   const FormPage({super.key});
@@ -14,7 +18,8 @@ class FormPage extends StatefulWidget {
 }
 
 class _FormPageState extends State<FormPage> {
-  final List<String> _categoryData = ['药品', 'Mango', 'Banana', 'Peach'];
+  List<String> _categoryData = [];
+  List<CategoryList> _category = [];
 
   // 分类
   String _selectCategory = '药品';
@@ -26,15 +31,86 @@ class _FormPageState extends State<FormPage> {
   List<DateTime?> _manufactureDate = [DateTime(2021, 8, 10)];
 
   // 有效日期
-  final TextEditingController _qualityGuaranteePeriod = TextEditingController();
+  final TextEditingController _qualityGuaranteePeriodController =
+      TextEditingController();
   String _selectUnit = 'day';
   String _remind = '7';
 
+  @override
+  void initState() {
+    super.initState();
+    _getCategory();
+  }
+
+  // 获取分类
+  Future<void> _getCategory() async {
+    var res = await CategoryAPI.getCategoryData();
+
+    List<String> nameList = [];
+
+    for (var item in res.list) {
+      nameList.add(item.name);
+    }
+    setState(() {
+      _categoryData = nameList;
+      _category = res.list;
+    });
+  }
+
   // 提交
   Future<void> _submit() async {
-    debugPrint(
-        '${_nameController.text}:$_selectCategory:${_manufactureDate.first.toString().replaceAll(' 00:00:00.000', '')}:$_selectUnit:$_remind');
-    // Navigator.pushNamed(context, '/login');
+    String name = _nameController.value.text;
+    String qualityGuaranteePeriod =
+        _qualityGuaranteePeriodController.value.text;
+    int categoryId = 0;
+
+    if (name.isEmpty) {
+      FToast.toast(
+        context,
+        duration: 800,
+        msg: '请输入物品名称',
+        msgStyle: const TextStyle(
+          color: Colors.white,
+        ),
+      );
+      return;
+    }
+    if (qualityGuaranteePeriod.isEmpty) {
+      FToast.toast(
+        context,
+        duration: 800,
+        msg: '请输入有效时间',
+        msgStyle: const TextStyle(
+          color: Colors.white,
+        ),
+      );
+      return;
+    }
+
+    for (var item in _category) {
+      if (item.name == _selectCategory) {
+        categoryId = item.id;
+      }
+    }
+
+    CreateAPI.getCreateData(
+      name: name,
+      manufactureDate: _manufactureDate.first.toString(),
+      qualityGuaranteePeriod: int.parse(qualityGuaranteePeriod),
+      categoryId: categoryId,
+      unit: _selectUnit,
+      remind: int.parse(_remind),
+    ).then((value) {
+      Navigator.pop(context);
+      FToast.toast(
+        context,
+        duration: 800,
+        msg: '添加成功！',
+        msgStyle: const TextStyle(
+          color: Colors.white,
+        ),
+      );
+    });
   }
 
   @override
@@ -78,7 +154,7 @@ class _FormPageState extends State<FormPage> {
         ),
         const Padding(padding: EdgeInsets.only(top: 10)),
         HCInput(
-          controller: _qualityGuaranteePeriod,
+          controller: _qualityGuaranteePeriodController,
           hintText: '请输入有效时间',
         ),
         const Padding(padding: EdgeInsets.only(top: 10)),

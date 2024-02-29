@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:common_utils/common_utils.dart';
+import 'package:expire/config/constants.dart';
+import 'package:expire/service/login_service.dart';
 import 'package:expire/store/local_storage.dart';
 import 'package:expire/widgets/button_widget.dart';
 import 'package:expire/widgets/input_widget.dart';
@@ -23,7 +25,10 @@ class _BodyState extends State<Body> {
 
   // 登录
   Future<void> _onLogin(BuildContext context) async {
-    if (!RegexUtil.isMobileExact(_usernameController.value.text)) {
+    String phone = _usernameController.value.text;
+    String password = _pwdController.value.text;
+
+    if (!RegexUtil.isMobileExact(phone)) {
       FToast.toast(
         context,
         duration: 800,
@@ -35,7 +40,7 @@ class _BodyState extends State<Body> {
       return;
     }
 
-    if (_pwdController.value.text.length < 6) {
+    if (password.length < 6) {
       FToast.toast(
         context,
         duration: 800,
@@ -46,18 +51,22 @@ class _BodyState extends State<Body> {
       );
       return;
     }
-    await Future.delayed(
-      const Duration(milliseconds: 10),
-      () => {
-        LocalStorage.set('access-token', '111111111'),
-        Navigator.pop(context),
-        FToast.toast(
-          context,
-          msg: '登录成功',
-          msgStyle: const TextStyle(
-            color: Colors.white,
-          ),
-        ),
+
+    LoginAPI.getCreateData(phone: phone, password: password).then(
+      (user) {
+        if (user.accessToken.isNotEmpty) {
+          LocalStorage.set('access-token', user.accessToken);
+          navigatorKey.currentState
+              ?.pushNamedAndRemoveUntil('/home', (route) => false);
+          FToast.toast(
+            context,
+            duration: 800,
+            msg: '登录成功！',
+            msgStyle: const TextStyle(
+              color: Colors.white,
+            ),
+          );
+        }
       },
     );
   }

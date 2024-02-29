@@ -34,6 +34,15 @@ class _HCSelectState extends State<HCSelect> {
   }
 
   @override
+  void didUpdateWidget(covariant HCSelect oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {
+      _value = widget.value;
+      _items = widget.items;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -83,10 +92,10 @@ class _HCSelectState extends State<HCSelect> {
           }),
           widget.onChanged.call(value),
         },
-        items: _items.map((String items) {
+        items: _items.map((String item) {
           return DropdownMenuItem(
-            value: items,
-            child: Text(items),
+            value: item,
+            child: Text(item),
           );
         }).toList(),
       ),

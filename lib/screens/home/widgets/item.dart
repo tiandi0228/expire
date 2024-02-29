@@ -1,8 +1,12 @@
+import 'package:common_utils/common_utils.dart';
+import 'package:expire/models/goods_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Item extends StatefulWidget {
-  const Item({super.key});
+  GoodsModel data;
+
+  Item({super.key, required this.data});
 
   @override
   State<StatefulWidget> createState() {
@@ -11,6 +15,16 @@ class Item extends StatefulWidget {
 }
 
 class _ItemState extends State<Item> {
+  late GoodsModel _data;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _data = widget.data;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,23 +58,17 @@ class _ItemState extends State<Item> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildCategory(),
-                const Text(
-                  '2025-02-01',
-                  style: TextStyle(
-                    color: Colors.black26,
-                    fontSize: 12,
-                  ),
-                ),
+                _buildExpire(),
               ],
             ),
             const Padding(padding: EdgeInsets.only(top: 10)),
-            const Text(
-              "退热贴",
+            Text(
+              _data.name,
               softWrap: true,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.left,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black54,
                 fontSize: 13,
               ),
@@ -92,15 +100,42 @@ class _ItemState extends State<Item> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SvgPicture.asset(
-            "assets/icon/pill.svg",
+            "assets/icon/${_data.icon}.svg",
             width: 20,
             height: 20,
           ),
           const Padding(padding: EdgeInsets.only(left: 5)),
-          const Text(
-            "药品",
-            style: TextStyle(
+          Text(
+            _data.categoryName,
+            style: const TextStyle(
               color: Color(0xFF9A9A9A),
+              fontSize: 12,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // 有效期
+  Widget _buildExpire() {
+    return Text.rich(
+      TextSpan(
+        children: [
+          const TextSpan(
+            text: "有效期:",
+            style: TextStyle(
+              color: Colors.black38,
+              fontSize: 12,
+            ),
+          ),
+          TextSpan(
+            text: DateUtil.formatDateStr(
+              _data.qualityGuaranteePeriod,
+              format: "yyyy年M月d日",
+            ),
+            style: const TextStyle(
+              color: Colors.black26,
               fontSize: 12,
             ),
           ),

@@ -162,9 +162,9 @@ class _PopupState extends State<Popup>
   void onTrayMenuItemClick(MenuItem menuItem) async {
     switch (menuItem.key) {
       case 'open':
-        debugPrint('隐藏');
         await Future.delayed(const Duration(milliseconds: 300));
         bool isVisible = await windowManager.isVisible();
+        debugPrint(isVisible ? '隐藏' : '打开');
         if (isVisible) {
           _windowHide();
         } else {
