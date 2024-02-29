@@ -1,14 +1,31 @@
+import 'dart:io';
+
 import 'package:expire/config/constants.dart';
 import 'package:expire/router/router.dart';
 import 'package:expire/screens/splash/splash_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:launch_at_startup/launch_at_startup.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:uni_platform/uni_platform.dart';
 import 'package:window_manager/window_manager.dart';
 
 Future<void> _ensureInitialized() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // 开机启动
+  if (!kIsWeb) {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    LaunchAtStartup.instance.setup(
+      appName: packageInfo.appName,
+      appPath: Platform.resolvedExecutable,
+    );
+  }
+
+  await launchAtStartup.enable();
+
   if (UniPlatform.isLinux || UniPlatform.isMacOS || UniPlatform.isWindows) {
     await windowManager.ensureInitialized();
   }
