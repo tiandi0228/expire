@@ -186,6 +186,13 @@ class _PopupState extends State<Popup>
   }
 
   @override
+  void onWindowBlur() async {
+    debugPrint('窗口失去焦点');
+    await Future.delayed(const Duration(milliseconds: 300));
+    _windowHide();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return const HomeScreen();
   }

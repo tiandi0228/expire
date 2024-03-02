@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:expire/config/constants.dart';
 import 'package:expire/router/router.dart';
 import 'package:expire/screens/splash/splash_screen.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,15 +15,15 @@ Future<void> _ensureInitialized() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // 开机启动
-  if (!kIsWeb) {
+  if (UniPlatform.isMacOS || UniPlatform.isWindows) {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     LaunchAtStartup.instance.setup(
       appName: packageInfo.appName,
       appPath: Platform.resolvedExecutable,
     );
-  }
 
-  await launchAtStartup.enable();
+    await launchAtStartup.enable();
+  }
 
   if (UniPlatform.isLinux || UniPlatform.isMacOS || UniPlatform.isWindows) {
     await windowManager.ensureInitialized();
