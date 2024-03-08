@@ -6,6 +6,7 @@ import 'package:expire/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:launch_at_startup/launch_at_startup.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:uni_platform/uni_platform.dart';
@@ -13,7 +14,8 @@ import 'package:window_manager/window_manager.dart';
 
 Future<void> _ensureInitialized() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Hive.initFlutter();
+  await Hive.openBox('Box');
   // 开机启动
   if (UniPlatform.isMacOS || UniPlatform.isWindows) {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();

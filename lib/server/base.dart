@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:expire/config/constants.dart';
-import 'package:expire/store/local_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 /*
   * 请求 操作类
@@ -78,7 +78,8 @@ class RequestUtil {
   }) async {
     try {
       Options requestOptions = options ?? Options();
-      var token = LocalStorage.get('access-token');
+      var box = Hive.box('Box');
+      var token = box.get('access-token');
       debugPrint('token: $token');
 
       /// 以下三行代码为获取token然后将其合并到header的操作
@@ -110,7 +111,8 @@ class RequestUtil {
   }) async {
     try {
       Options requestOptions = options ?? Options();
-      var token = LocalStorage.get('access-token');
+      var box = Hive.box('Box');
+      var token = box.get('access-token');
 
       /// 以下三行代码为获取token然后将其合并到header的操作
       Map<String, dynamic> authorization = {"Access-token": token};

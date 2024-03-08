@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:expire/screens/home/home_screen.dart';
-import 'package:expire/store/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:uni_platform/uni_platform.dart';
@@ -62,13 +61,7 @@ class _PopupState extends State<Popup>
   Future<void> _init() async {
     // 初始化托盘图标
     await _initTrayIcon();
-    await _initData();
     setState(() {});
-  }
-
-  // 初始化数据
-  Future<void> _initData() async {
-    LocalStorage.initSP();
   }
 
   // 初始化Tray

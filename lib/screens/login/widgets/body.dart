@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:common_utils/common_utils.dart';
 import 'package:expire/config/constants.dart';
 import 'package:expire/service/login_service.dart';
-import 'package:expire/store/local_storage.dart';
 import 'package:expire/widgets/button_widget.dart';
 import 'package:expire/widgets/input_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:ftoast/ftoast.dart';
+import 'package:hive/hive.dart';
 
 class Body extends StatefulWidget {
   const Body({super.key});
@@ -55,7 +55,8 @@ class _BodyState extends State<Body> {
     LoginAPI.getCreateData(phone: phone, password: password).then(
       (user) {
         if (user.accessToken.isNotEmpty) {
-          LocalStorage.set('access-token', user.accessToken);
+          var box = Hive.box('Box');
+          box.put('access-token', user.accessToken);
           navigatorKey.currentState?.pushNamed('/home');
           FToast.toast(
             context,
