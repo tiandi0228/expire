@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:expire/config/constants.dart';
 import 'package:expire/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:tray_manager/tray_manager.dart';
@@ -176,6 +177,7 @@ class _PopupState extends State<Popup>
     debugPrint('关闭窗口');
     await Future.delayed(const Duration(milliseconds: 300));
     _windowHide();
+    navigatorKey.currentState?.pushNamed('/home');
   }
 
   @override
